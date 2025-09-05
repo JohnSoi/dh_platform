@@ -37,3 +37,7 @@ class BaseModel(DeclarativeBase):
         nullable=False,
         unique=True,
     )
+
+    def to_dict(self) -> dict:
+        """Конвертация объекта в словарь"""
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
