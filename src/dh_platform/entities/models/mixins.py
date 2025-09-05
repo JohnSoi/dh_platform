@@ -201,7 +201,8 @@ class FullEntityMixin(UUIDMixin, TimestampMixin, AuditMixin, SoftDeleteMixin, Or
     >>> from dh_platform.entities.models import BaseModel, FullEntityMixin
     >>>
     >>>
-    >>> # Создание модели пользователя с полями: ID, UUID, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by, order, deactivated_at, deactivated_by, name, surname
+    >>> # Создание модели пользователя с полями: ID, UUID, created_at, updated_at, deleted_at, created_by, updated_by,
+    >>> # deleted_by, order, deactivated_at, deactivated_by, name, surname
     >>> class MyModel(BaseModel, FullEntityMixin):
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
