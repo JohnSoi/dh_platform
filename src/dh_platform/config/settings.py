@@ -24,6 +24,7 @@ class BaseAppSettings(BaseSettings):
     :cvar DEBUG: режим отладки
     :type DEBUG: bool
     """
+
     DATABASE_URL: PostgresDsn
     DB_ECHO: bool = False
     DB_POOL_SIZE: int = 20
@@ -34,6 +35,7 @@ class BaseAppSettings(BaseSettings):
 
     class Config:
         """Конфигурация получения настроек"""
+
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = True
