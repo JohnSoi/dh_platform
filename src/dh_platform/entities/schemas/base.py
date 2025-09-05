@@ -4,6 +4,7 @@ __author__: str = "Старков Е.П."
 
 from pydantic import BaseModel
 
+
 class BaseSchema(BaseModel):
     """
     Базовая схема данных приложений
@@ -20,4 +21,5 @@ class BaseSchema(BaseModel):
     >>>     name: str
     >>>     surname: str
     """
+
     ID: int

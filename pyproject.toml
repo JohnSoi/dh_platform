@@ -16,6 +16,21 @@ dependencies = [
 packages = [{include = "dh_platform", from = "src"}]
 
 
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.3.8"
+black = "^25.1.0"
+isort = "^6.0.1"
+radon = "^6.0.1"
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+atomic = true
+profile = "black"
+line_length = 120
+
+[tool.black]
+line-length = 120
+target-version = ['py310']

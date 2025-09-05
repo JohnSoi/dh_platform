@@ -3,4 +3,14 @@
 __author__: str = "Старков Е.П."
 
 from .base import BaseModel
-from .mixins import UUIDMixin, TimestampMixin, SoftDeleteMixin, ActiveMixin, OrderMixin, FullTimeStampMixin, FullEntityMixin, BaseEntityMixin, AuditMixin
+from .mixins import (
+    ActiveMixin,
+    AuditMixin,
+    BaseEntityMixin,
+    FullEntityMixin,
+    FullTimeStampMixin,
+    OrderMixin,
+    SoftDeleteMixin,
+    TimestampMixin,
+    UUIDMixin,
+)

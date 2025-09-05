@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 """Базовая модель сущностей"""
 
 __author__: str = "Старков Е.П."
@@ -25,6 +26,7 @@ class BaseModel(DeclarativeBase):
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
+
     __abstract__ = True
 
     ID: Mapped[int] = mapped_column(
@@ -33,5 +35,5 @@ class BaseModel(DeclarativeBase):
         auto_increment=True,
         index=True,
         nullable=False,
-        unique=True
+        unique=True,
     )

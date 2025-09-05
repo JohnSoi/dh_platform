@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods, not-callable, unnecessary-ellipsis
 """Миксины с базовыми колонками для таблиц"""
 
 __author__ = "Старков Е.П."
@@ -5,9 +6,9 @@ __author__ = "Старков Е.П."
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, func, Integer
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import DateTime, Integer, func
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class UUIDMixin:
@@ -29,12 +30,8 @@ class UUIDMixin:
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
-    UUID: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        default=uuid.uuid4,
-        unique=True,
-        nullable=False
-    )
+
+    UUID: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), default=uuid.uuid4, unique=True, nullable=False)
 
 
 class TimestampMixin:
@@ -58,16 +55,13 @@ class TimestampMixin:
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True),
-        server_default=func.now(),
-        nullable=False
-    )
+
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
         onupdate=func.now(),
-        nullable=False
+        nullable=False,
     )
 
 
@@ -92,14 +86,12 @@ class SoftDeleteMixin:
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
+
     deleted_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=True,
     )
-    deleted_by: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=False
-    )
+    deleted_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
 
 
 class ActiveMixin:
@@ -123,14 +115,12 @@ class ActiveMixin:
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
+
     deactivated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=True,
     )
-    deactivated_by: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=False
-    )
+    deactivated_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
 
 
 class AuditMixin:
@@ -154,14 +144,9 @@ class AuditMixin:
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
-    created_by: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=False
-    )
-    updated_by: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=True
-    )
+
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
+    updated_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
 
 
 class OrderMixin:
@@ -183,11 +168,8 @@ class OrderMixin:
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
-    order: Mapped[int] = mapped_column(
-        Integer,
-        nullable=False,
-        default=0
-    )
+
+    order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
 
 class FullEntityMixin(UUIDMixin, TimestampMixin, AuditMixin, SoftDeleteMixin, OrderMixin, ActiveMixin):
@@ -207,6 +189,7 @@ class FullEntityMixin(UUIDMixin, TimestampMixin, AuditMixin, SoftDeleteMixin, Or
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
+
     ...
 
 
@@ -226,6 +209,7 @@ class FullTimeStampMixin(TimestampMixin, SoftDeleteMixin):
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
+
     ...
 
 
@@ -245,4 +229,5 @@ class BaseEntityMixin(UUIDMixin, FullTimeStampMixin):
     >>>     name: Mapped[str] = mapped_column(String, unique=True, index=True)
     >>>     surname: Mapped[str] = mapped_column(String, unique=True, index=True)
     """
+
     ...

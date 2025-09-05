@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods, unnecessary-ellipsis
 """Базовые миксины полей схем данных"""
 
 __author__: str = "Старков Е.П."
@@ -22,6 +23,7 @@ class UUIDSchemaMixin:
     >>>     name: str
     >>>     surname: str
     """
+
     UUID: UUID
 
 
@@ -43,6 +45,7 @@ class TimestampSchemaMixin:
     >>>     name: str
     >>>     surname: str
     """
+
     created_at: datetime
     updated_at: datetime
 
@@ -65,6 +68,7 @@ class SoftDeleteSchemaMixin:
     >>>     name: str
     >>>     surname: str
     """
+
     deleted_at: datetime
     deleted_by: UUID
 
@@ -87,6 +91,7 @@ class AuditSchemaMixin:
     >>>     name: str
     >>>     surname: str
     """
+
     created_by: UUID
     updated_by: UUID
 
@@ -109,6 +114,7 @@ class ActiveSchemaMixin:
     >>>     name: str
     >>>     surname: str
     """
+
     deactivated_at: datetime
     deactivated_by: UUID
 
@@ -129,12 +135,17 @@ class OrderSchemaMixin:
     >>>     name: str
     >>>     surname: str
     """
+
     order: int
 
 
 class FullEntitySchemaMixin(
-    UUIDSchemaMixin, TimestampSchemaMixin, SoftDeleteSchemaMixin,
-    AuditSchemaMixin, ActiveSchemaMixin, OrderSchemaMixin
+    UUIDSchemaMixin,
+    TimestampSchemaMixin,
+    SoftDeleteSchemaMixin,
+    AuditSchemaMixin,
+    ActiveSchemaMixin,
+    OrderSchemaMixin,
 ):
     """
     Полный миксин схемы данных. Содержит все базовы миксины
@@ -149,6 +160,7 @@ class FullEntitySchemaMixin(
     >>>     name: str
     >>>     surname: str
     """
+
     ...
 
 
@@ -165,10 +177,11 @@ class FullTimeStampMixin(TimestampSchemaMixin, SoftDeleteSchemaMixin):
     >>>     name: str
     >>>     surname: str
     """
+
     ...
 
 
-class BaseEntitySchemaMixin(UUIDSchemaMixin, FullEntitySchemaMixin):
+class BaseEntitySchemaMixin(FullEntitySchemaMixin, UUIDSchemaMixin):
     """
     Базовый миксин сущности. Содержит миксины врменени создания, обновления, удаления, а так же UUID самой сущности
 
@@ -181,4 +194,5 @@ class BaseEntitySchemaMixin(UUIDSchemaMixin, FullEntitySchemaMixin):
     >>>     name: str
     >>>     surname: str
     """
+
     ...
