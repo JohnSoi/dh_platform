@@ -19,7 +19,7 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
     :return: генератор асинхронной сессии подключения к БД
 
     .. code-block:: python
-    >>> from dh_platform.source.database import database
+    >>> from dh_platform.source.database import get_db
     >>>
     >>> async def endpoint(db: AsyncSession = Depends(get_db)):
     >>>     ...

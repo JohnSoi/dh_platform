@@ -5,6 +5,9 @@ __author__: str = "Старков Е.П."
 from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings
 
+from dh_platform.consts.logger import LogLevel
+from dh_platform.types import LogLevelType
+
 
 class BaseAppSettings(BaseSettings):
     """
@@ -32,6 +35,12 @@ class BaseAppSettings(BaseSettings):
 
     APP_NAME: str
     DEBUG: bool = False
+
+    LOG_NAME: str = "dh_app"
+    LOG_LEVEL: LogLevelType = LogLevel.INFO
+    LOG_FILE_SIZE_MB: int = 10
+    LOG_DIRECTORY: str = "logs"
+    SAVE_LOG_FILES: bool = True
 
     class Config:
         """Конфигурация получения настроек"""
