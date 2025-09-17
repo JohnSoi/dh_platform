@@ -1,3 +1,4 @@
+# pylint: disable=too-few-public-methods
 """Модуль конфигурации приложений"""
 
 __author__: str = "Старков Е.П."
