@@ -1,15 +1,16 @@
 from fastapi import FastAPI, Request, status
-from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from dh_platform.utils import logger
+
 from .custom_errors import (
     CustomHTTPException,
-    ValidationException,
+    ForbiddenException,
     NotFoundException,
     UnauthorizedException,
-    ForbiddenException
+    ValidationException,
 )
 
 
@@ -25,19 +26,13 @@ def setup_exception_handlers(app: FastAPI):
                 "status_code": exc.status_code,
                 "detail": exc.detail,
                 "url": str(request.url),
-            }
+            },
         )
 
         return JSONResponse(
             status_code=exc.status_code,
-            content={
-                "error": {
-                    "code": exc.code,
-                    "message": exc.detail,
-                    "details": exc.details
-                }
-            },
-            headers=exc.headers
+            content={"error": {"code": exc.code, "message": exc.detail, "details": exc.details}},
+            headers=exc.headers,
         )
 
     @app.exception_handler(StarletteHTTPException)
@@ -49,17 +44,11 @@ def setup_exception_handlers(app: FastAPI):
                 "status_code": exc.status_code,
                 "detail": exc.detail,
                 "url": str(request.url),
-            }
+            },
         )
 
         return JSONResponse(
-            status_code=exc.status_code,
-            content={
-                "error": {
-                    "code": "http_error",
-                    "message": exc.detail
-                }
-            }
+            status_code=exc.status_code, content={"error": {"code": "http_error", "message": exc.detail}}
         )
 
     @app.exception_handler(RequestValidationError)
@@ -67,29 +56,21 @@ def setup_exception_handlers(app: FastAPI):
         """Обработчик ошибок валидации"""
         errors = []
         for error in exc.errors():
-            errors.append({
-                "field": " -> ".join(str(loc) for loc in error["loc"]),
-                "message": error["msg"],
-                "type": error["type"]
-            })
+            errors.append(
+                {"field": " -> ".join(str(loc) for loc in error["loc"]), "message": error["msg"], "type": error["type"]}
+            )
 
         logger.warning(
             "Validation error",
             extra={
                 "errors": errors,
                 "url": str(request.url),
-            }
+            },
         )
 
         return JSONResponse(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            content={
-                "error": {
-                    "code": "validation_error",
-                    "message": "Validation failed",
-                    "details": errors
-                }
-            }
+            content={"error": {"code": "validation_error", "message": "Validation failed", "details": errors}},
         )
 
     @app.exception_handler(Exception)
@@ -102,15 +83,10 @@ def setup_exception_handlers(app: FastAPI):
                 "url": str(request.url),
                 "method": request.method,
             },
-            exc_info=True
+            exc_info=True,
         )
 
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={
-                "error": {
-                    "code": "internal_error",
-                    "message": "Internal server error"
-                }
-            }
+            content={"error": {"code": "internal_error", "message": "Internal server error"}},
         )

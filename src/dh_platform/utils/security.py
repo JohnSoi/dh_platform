@@ -1,4 +1,5 @@
 import secrets
+
 from passlib.context import CryptContext
 
 from dh_platform.consts.security import EMAIL_REGEXP
@@ -37,21 +38,20 @@ class SecurityUtils:
     def sanitize_input(input_string: str) -> str:
         """Очистка входных данных от потенциально опасных символов"""
         import html
+
         return html.escape(input_string.strip())
 
     @staticmethod
     def is_valid_email(email: str) -> bool:
         """Проверка валидности email"""
         import re
+
         return bool(re.match(EMAIL_REGEXP, email))
 
     @staticmethod
     def validate_password_strength(password: str) -> dict:
         """Проверка сложности пароля"""
-        result = {
-            "valid": True,
-            "errors": []
-        }
+        result = {"valid": True, "errors": []}
 
         if len(password) < 8:
             result["valid"] = False

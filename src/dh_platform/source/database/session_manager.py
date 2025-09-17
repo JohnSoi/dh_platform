@@ -6,7 +6,7 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 from pydantic import PostgresDsn
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker, AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
 from src.dh_platform.config import base_settings
 
@@ -20,6 +20,7 @@ class DatabaseSessionManager:
     :ivar _async_session: менеджер асинхронных сессий
     :type _async_session: async_sessionmaker[AsyncSession]
     """
+
     def __init__(self, url: PostgresDsn) -> None:
         """
         Инициализация класса работы с сессиями БД

@@ -1,11 +1,10 @@
-import json
 import datetime
-
+import json
 from decimal import Decimal
 from typing import Any, Dict
 from uuid import UUID
 
-from dh_platform.consts import ENCODING, BASE_SQL_DATE_FORMAT
+from dh_platform.consts import BASE_SQL_DATE_FORMAT, ENCODING
 
 
 class JSONEncoder(json.JSONEncoder):
@@ -22,7 +21,7 @@ class JSONEncoder(json.JSONEncoder):
             return str(obj)
         if isinstance(obj, bytes):
             return obj.decode(ENCODING)
-        if hasattr(obj, 'to_dict'):
+        if hasattr(obj, "to_dict"):
             return obj.to_dict()
         return super().default(obj)
 
@@ -34,14 +33,15 @@ def json_serialize(obj: Any) -> str:
 
 def to_camel_case(snake_str: str) -> str:
     """Конвертация snake_case в camelCase"""
-    components = snake_str.split('_')
-    return components[0] + ''.join(x.title() for x in components[1:])
+    components = snake_str.split("_")
+    return components[0] + "".join(x.title() for x in components[1:])
 
 
 def to_snake_case(camel_str: str) -> str:
     """Конвертация camelCase в snake_case"""
     import re
-    return re.sub(r'(?<!^)(?=[A-Z])', '_', camel_str).lower()
+
+    return re.sub(r"(?<!^)(?=[A-Z])", "_", camel_str).lower()
 
 
 def deep_update(mapping: Dict, *updating_mappings: Dict) -> Dict:
@@ -49,8 +49,7 @@ def deep_update(mapping: Dict, *updating_mappings: Dict) -> Dict:
     result = mapping.copy()
     for updating_mapping in updating_mappings:
         for k, v in updating_mapping.items():
-            if (k in result and isinstance(result[k], dict)
-                    and isinstance(v, dict)):
+            if k in result and isinstance(result[k], dict) and isinstance(v, dict):
                 result[k] = deep_update(result[k], v)
             else:
                 result[k] = v

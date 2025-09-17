@@ -1,4 +1,5 @@
 import time
+
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
@@ -33,16 +34,19 @@ class TimingMiddleware(BaseHTTPMiddleware):
         response.headers["X-Process-Time"] = f"{execution_time:.3f}"
 
         # Логируем медленные запросы
-        if execution_time > 1.0 or (base_settings.DEBUG and base_settings.LOG_LEVEL == LogLevel.DEBUG):  # Больше 1 секунды
+        if execution_time > 1.0 or (
+            base_settings.DEBUG and base_settings.LOG_LEVEL == LogLevel.DEBUG
+        ):  # Больше 1 секунды
             from dh_platform.utils import logger
+
             logger.warning(
                 "Slow request detected",
                 extra={
                     "method": request.method,
                     "url": str(request.url),
                     "execution_time": f"{execution_time:.3f}s",
-                    "threshold": "1.0s"
-                }
+                    "threshold": "1.0s",
+                },
             )
 
         return response

@@ -1,4 +1,4 @@
-from typing import TypeAlias, Literal
+from typing import Literal, TypeAlias
 
 from dh_platform.consts.logger import LogLevel
 

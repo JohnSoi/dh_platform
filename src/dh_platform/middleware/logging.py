@@ -1,4 +1,5 @@
 import time
+
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -19,7 +20,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 "url": str(request.url),
                 "client": request.client.host if request.client else "unknown",
                 "user_agent": request.headers.get("user-agent", ""),
-            }
+            },
         )
 
         try:
@@ -32,9 +33,9 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                     "method": request.method,
                     "url": str(request.url),
                     "error": str(e),
-                    "execution_time": time.time() - start_time
+                    "execution_time": time.time() - start_time,
                 },
-                exc_info=True
+                exc_info=True,
             )
             raise
 
@@ -48,7 +49,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 "url": str(request.url),
                 "status_code": response.status_code,
                 "execution_time": f"{execution_time:.3f}s",
-            }
+            },
         )
 
         # Добавляем время выполнения в headers
@@ -62,6 +63,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next):
         import uuid
+
         request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
 
         # Добавляем request_id в state

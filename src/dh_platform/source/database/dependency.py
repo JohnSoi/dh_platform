@@ -6,8 +6,8 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dh_platform.source.database.session_manager import DatabaseSessionManager
 from dh_platform.config import base_settings
+from dh_platform.source.database.session_manager import DatabaseSessionManager
 
 session_manager: DatabaseSessionManager = DatabaseSessionManager(base_settings.DATABASE_URL)
 
