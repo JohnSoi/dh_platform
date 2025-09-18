@@ -1,3 +1,7 @@
+"""Обработчики исключений внутренних исключений приложения"""
+
+__author__: str = "Старков Е.П."
+
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -5,13 +9,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from dh_platform.utils import logger
 
-from .custom_errors import (
-    CustomHTTPException,
-    ForbiddenException,
-    NotFoundException,
-    UnauthorizedException,
-    ValidationException,
-)
+from .custom_errors import CustomHTTPException
 
 
 def setup_exception_handlers(app: FastAPI):

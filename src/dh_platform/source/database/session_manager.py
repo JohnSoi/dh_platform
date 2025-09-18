@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 from pydantic import PostgresDsn
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
-from src.dh_platform.config import base_settings
+from dh_platform.config import base_settings
 
 
 class DatabaseSessionManager:
