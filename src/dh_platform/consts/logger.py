@@ -17,6 +17,7 @@ class LogLevel(StrEnum):
     :cvar WARN: предупреждения
     :cvar ERROR: ошибки
     """
+
     DEBUG = "DEBUG"
     INFO = "INFO"
     WARN = "WARN"

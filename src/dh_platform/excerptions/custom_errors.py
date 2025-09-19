@@ -65,7 +65,7 @@ class ValidationException(CustomHTTPException):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail="Ошибка валидации данных",
             code=ErrorCode.VALIDATION_ERROR,
-            details=details
+            details=details,
         )
 
 
@@ -83,10 +83,7 @@ class NotFoundException(CustomHTTPException):
 
     def __init__(self, details: ExceptionDetailsType | None = None):
         super().__init__(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Объект не найден",
-            code=ErrorCode.NOT_FOUND,
-            details=details
+            status_code=status.HTTP_404_NOT_FOUND, detail="Объект не найден", code=ErrorCode.NOT_FOUND, details=details
         )
 
 
@@ -108,7 +105,7 @@ class UnauthorizedException(CustomHTTPException):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Аутентификация не пройдена",
             code=ErrorCode.UNAUTHORIZED,
-            details=details
+            details=details,
         )
 
 
@@ -129,7 +126,7 @@ class ForbiddenException(CustomHTTPException):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Доступ к ресурсу запрещен",
             code=ErrorCode.FORBIDDEN,
-            details=details
+            details=details,
         )
 
 
@@ -162,7 +159,7 @@ class DatabaseException(CustomHTTPException):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Ошибка базы данных",
             code=ErrorCode.DATABASE_ERROR,
-            details=details
+            details=details,
         )
 
 
@@ -190,5 +187,5 @@ class ServiceUnavailableException(CustomHTTPException):
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Внутренняя ошибка сервиса",
             code=ErrorCode.SERVICE_UNAVAILABLE,
-            details=details
+            details=details,
         )

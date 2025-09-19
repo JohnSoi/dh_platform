@@ -2,7 +2,7 @@
 
 __author__: str = "Старков Е.П."
 
-from typing import TypeAlias, Any
+from typing import Any, TypeAlias
 
 # Навигация в системе
 NavigationType: TypeAlias = dict[str, int]

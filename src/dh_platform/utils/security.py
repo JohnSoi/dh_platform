@@ -2,12 +2,12 @@
 
 __author__: str = "Старков Е.П."
 
-import secrets
-import uuid
 import html
 import re
-
+import secrets
+import uuid
 from pathlib import Path
+
 from passlib.context import CryptContext
 
 from dh_platform.consts.security import EMAIL_REGEXP, MIN_PASSWORD_LENGTH
@@ -91,6 +91,7 @@ def generate_secure_filename(original_filename: str) -> str:
 
 class SecurityUtils:
     """Дополнительные security-утилиты"""
+
     @staticmethod
     def sanitize_input(input_string: str) -> str:
         """

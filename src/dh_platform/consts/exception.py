@@ -17,6 +17,7 @@ class ErrorCode(StrEnum):
     :cvar DATABASE_ERROR: ошибка при работе с базой данных
     :cvar SERVICE_UNAVAILABLE: ошибка недоступности сервиса
     """
+
     CUSTOM_ERROR = "custom_error"
     VALIDATION_ERROR = "validation_error"
     NOT_FOUND = "not_found"
