@@ -36,13 +36,13 @@ def setup_logger(
     :rtype: logging.Logger
 
     .. code-block:: python
-        from dh_platform.logger import setup_logger
+    >>> from dh_platform.utils import setup_logger
 
-        # Глобальный логгер
-        logger: logging.Logger = setup_logger(
-            log_level=base_settings.LOG_LEVEL,
-            log_file=base_settings.LOG_DIRECTORY if not base_settings.SAVE_LOG_FILES else None
-        )
+    >>> # Глобальный логгер
+    >>> logger: logging.Logger = setup_logger(
+    >>>     log_level=base_settings.LOG_LEVEL,
+    >>>     log_file=base_settings.LOG_DIRECTORY if not base_settings.SAVE_LOG_FILES else None
+    >>> )
     """
     app_logger: logging.Logger = logging.getLogger(name)
     app_logger.setLevel(getattr(logging, log_level.upper()))

@@ -9,9 +9,9 @@ from datetime import timedelta
 from typing import Any
 
 from dh_platform.consts import BASE_SQL_DATE_FORMAT, MAX_NAV_LIMIT
+from dh_platform.types import NavigationType
 
 from .private import JSONEncoder
-from ..types import NavigationType
 
 
 def json_serialize(obj: Any) -> str:
